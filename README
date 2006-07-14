@@ -1,0 +1,85 @@
+   This is the Dir::Project Perl Package.
+
+0.1 Copyright
+=============
+
+This package is Copyright 2001-2006 by Wilson Snyder
+<wsnyder@wsnyder.org>.
+
+   This program is free software; you can redistribute it and/or modify
+it under the terms of either the GNU Lesser General Public License or
+the Perl Artistic License.
+
+   This code is provided with no warranty of any kind, and is used
+entirely at your own risk.
+
+0.2 Summary
+===========
+
+Dir::Project provides a way to locate a source-controlled checkout
+directory (CVS, Subversion, Perforce, etc) using only the current
+working directory (cd).  This prevents users from having to set other
+environment variables when they switch between areas, and allows
+scripts and such inside the directory to be executed without changing
+the user's PATH.
+
+     # One-time setup
+     ln -s project_bin /global/dir/my_tool
+     PATH = "/global/dir"
+
+     # Usage
+     cd project1
+     project_dir --project
+        /path/to/project1
+     my_tool my_args....   # Executes project1/.../my_tool
+
+     cd project2
+     project_dir --project
+        /path/to/project2
+     my_tool my_args....   # Executes project2/.../my_tool
+
+   You can also determine the project directory from a makefile:
+
+     include $(DIRPROJECT_PREFIX)/lib/project_dir.mk
+     # Now use $(DIRPROJECT)
+
+0.3 Obtaining Distribution
+==========================
+
+Log-Detect is part of the L<http://www.veripool.com/> free EDA software
+tool suite.  The latest version is available from
+`http://www.perl.org/CPAN/', and from `http://www.veripool.com/'.
+
+   Download the latest package from that site, and decompress.  `gunzip
+Log-Detect_version.tar.gz ; tar xvf Log-Detect_version.tar'
+
+0.4 Supported Systems
+=====================
+
+This version of Dir::Project has been built and tested on:
+
+   * i386-linux
+
+   It should run on any system with Perl5.
+
+0.5 Installation
+================
+
+  1. `cd' to the directory containing this README notice.
+
+  2. Type `perl Makefile.PL' to configure Dir::Project for your system.
+     (Note this package will probably run slower if you are still using
+     perl 5.005.)
+
+  3. Type `make' to compile Dir::Project.  Some non-GNU makes may give
+     errors about DIST_DEFAULT, if so you can simply remove that line
+     from Makefile.PL, and repeat the last two steps.
+
+  4. Type `make test' to check the compilation.
+
+  5. Type `make install' to install the programs and any data files and
+     documentation.
+
+  6. See `man project_bin' and `man Dir::Project' for usage information.
+
+

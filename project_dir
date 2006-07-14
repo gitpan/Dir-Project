@@ -1,0 +1,143 @@
+#!/usr/bin/perl -w
+# $Id: project_dir,v 1.6 2006/07/14 15:14:12 wsnyder Exp $
+######################################################################
+#
+# Copyright 2001-2006 by Wilson Snyder.  This program is free software;
+# you can redistribute it and/or modify it under the terms of either the GNU
+# General Public License or the Perl Artistic License.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+######################################################################
+
+@INC = ();
+use lib 'blib/lib';	# Debugging
+use Pod::Text;
+use Getopt::Long;
+
+use Dir::Project;
+use strict;
+use vars qw ($Debug $VERSION);
+
+######################################################################
+# configuration
+
+######################################################################
+# main
+
+# read command line
+Getopt::Long::config ("no_auto_abbrev");
+if (!GetOptions (
+		 "help"		=> \&usage,
+		 "debug"	=> \&debug,
+		 "cat"		=> \&Dir::Project::makefile_cat,  #debug
+		 "project"	=> sub{
+		   Dir::Project::get_set_all();
+		     if (defined $Project) {
+			 print "$Project\n";
+		     } else {
+			 print "%Error:_Project_not_set\n";
+		     }
+		 },
+		 "makefile"	=> \&Dir::Project::makefile,
+		 )) {
+    usage();
+}
+exit(0);
+
+######################################################################
+
+sub usage {
+    print '$Id: project_dir,v 1.6 2006/07/14 15:14:12 wsnyder Exp $ ', "\n";
+    $SIG{__WARN__} = sub{};	#pod2text isn't clean.
+    pod2text($0);
+    exit (1);
+}
+
+sub debug {
+    $Debug = 1;
+    $Dir::Project::Debug = 1;
+}
+
+######################################################################
+######################################################################
+######################################################################
+
+__END__
+
+=pod
+
+=head1 NAME
+
+project_dir - Determine and query DIRPROJECT environment variables
+
+=head1 SYNOPSIS
+
+    project_dir --project
+    project_dir --makefile
+
+=head1 DESCRIPTION
+
+L<project_dir> reports the status of the Dir::Project variables.  See the
+arguments below for what action is to be performed.
+
+=head1 ARGUMENTS
+
+=over 4
+
+=item --project
+
+Print the current project directory path.  Determined based on a project
+symlink or the current directory, see L<Dir::Project> for details.
+
+=item --makefile
+
+This option is intended to be called from inside a makefile by
+project_dir.mk.  It creates a temporary file with makefile variable
+settings and print that filename.
+
+=item --cat
+
+Print the contents of what --makefile would create.
+
+=back
+
+=head1 ENVIRONMENT
+
+The following environment variables are set by project_dir via the
+makefile:
+
+=over 4
+
+=item DIRPROJECT
+
+The directory path to the root of the model.
+
+=back
+
+See L<Dir::Project> for other relevant environment variables.
+
+=head1 DISTRIBUTION
+
+Dir-Project is part of the L<http://www.veripool.com/> free EDA software
+tool suite.  The latest version is available from CPAN and from
+L<http://www.veripool.com/>.
+
+Copyright 2001-2006 by Wilson Snyder.  This package is free software; you
+can redistribute it and/or modify it under the terms of either the GNU
+Lesser General Public License or the Perl Artistic License.
+
+=head1 AUTHORS
+
+Wilson Snyder <wsnyder@wsnyder.org>
+
+=head1 SEE ALSO
+
+L<Dir::Project>, L<project_bin>
+
+=cut
+
+######################################################################
