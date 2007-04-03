@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
 # project_bin - Run a program in the project bin directory
-# $Id: project_bin,v 1.14 2006/07/14 15:48:53 wsnyder Exp $
+# $Id: project_bin 14 2007-04-03 15:30:08Z wsnyder $
 ######################################################################
 #
-# Copyright 2001-2006 by Wilson Snyder.  This program is free software;
+# Copyright 2001-2007 by Wilson Snyder.  This program is free software;
 # you can redistribute it and/or modify it under the terms of either the GNU
 # General Public License or the Perl Artistic License.
 # 
@@ -15,7 +15,7 @@
 ######################################################################
 
 BEGIN { $Dir::Project::Set_Defaults = 0; }
-use Pod::Text;
+use Pod::Usage;
 
 use Dir::Project;
 use strict;
@@ -62,7 +62,7 @@ $program =~ s/^.*[\\\/]//g;  # Strip path
 
 if ($program eq "project_bin") {
     print STDERR "%Error: project_bin should be symlinked to a program name, not called directly\n";
-    usage();  # So can see how to use if
+    die "%Error: Bad usage, try 'project_bin --project_bin-help'\n";
 }
 
 Dir::Project::get_set_all();
@@ -91,9 +91,8 @@ exec $program_wdir, @params;
 ######################################################################
 
 sub usage {
-    print '$Id: project_bin,v 1.14 2006/07/14 15:48:53 wsnyder Exp $ ', "\n";
-    $SIG{__WARN__} = sub{};	#pod2text isn't clean.
-    pod2text($0);
+    print '$Id: project_bin 14 2007-04-03 15:30:08Z wsnyder $ ', "\n";
+    pod2usage(-verbose=>2, -exitval => 2);
     exit (1);
 }
 
@@ -181,7 +180,7 @@ Dir-Project is part of the L<http://www.veripool.com/> free EDA software
 tool suite.  The latest version is available from CPAN and from
 L<http://www.veripool.com/>.
 
-Copyright 2001-2006 by Wilson Snyder.  This package is free software; you
+Copyright 2001-2007 by Wilson Snyder.  This package is free software; you
 can redistribute it and/or modify it under the terms of either the GNU
 Lesser General Public License or the Perl Artistic License.
 

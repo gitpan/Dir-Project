@@ -1,8 +1,8 @@
 # Dir::Project.pm -- Project's cvfs routine library
-# $Id: Project.pm,v 1.8 2006/07/14 15:48:53 wsnyder Exp $
+# $Id: Project.pm 15 2007-04-03 15:31:06Z wsnyder $
 ######################################################################
 #
-# Copyright 2001-2006 by Wilson Snyder.  This program is free software;
+# Copyright 2001-2007 by Wilson Snyder.  This program is free software;
 # you can redistribute it and/or modify it under the terms of either the GNU
 # General Public License or the Perl Artistic License.
 # 
@@ -34,7 +34,7 @@ use vars qw($VERSION $Debug $Project %Env_Vars $Set_Defaults);
 ######################################################################
 #### Configuration Section
 
-$VERSION = '3.000';
+$VERSION = '3.001';
 
 # List of all environment variables we might generate
 %Env_Vars = (
@@ -449,14 +449,14 @@ Set when project_bin is invoked with --debug.
 A colon-separated list of directories that program_paths() and
 L<project_bin> should search for executables within.  Generally contains a
 leading project/ in front of all directories, this will be converted to
-$DIRPROJECT.  Set by the user's .bashrc or similar login script
+$DIRPROJECT.  Set by the user's .bashrc or similar login script.
 
 =item DIRPROJECT_PREFIX
 
 A global directory like the --prefix passed to most configure scripts.
 Used by program_paths() and L<project_bin> to create the default
 $DIRPROJECT_PREFIX/bin/{program}__not_found link.  Set by the user's
-.bashrc or similar login script
+.bashrc or similar login script.
 
 =item DIRPROJECT_EXE
 
@@ -470,7 +470,7 @@ Dir-Project is part of the L<http://www.veripool.com/> free EDA software
 tool suite.  The latest version is available from CPAN and from
 L<http://www.veripool.com/>.
 
-Copyright 2001-2006 by Wilson Snyder.  This package is free software; you
+Copyright 2001-2007 by Wilson Snyder.  This package is free software; you
 can redistribute it and/or modify it under the terms of either the GNU
 Lesser General Public License or the Perl Artistic License.
 
@@ -480,7 +480,7 @@ Wilson Snyder <wsnyder@wsnyder.org>
 
 =head1 SEE ALSO
 
-L<project_bin>, L<project_dir>, 
+L<project_bin>, L<project_dir>
 
 =cut
 

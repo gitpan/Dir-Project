@@ -1,7 +1,7 @@
-# $Id: Makefile.PL,v 1.3 2006/07/14 15:14:12 wsnyder Exp $
+# $Id: Makefile.PL 14 2007-04-03 15:30:08Z wsnyder $
 # DESCRIPTION: Perl ExtUtils: Type 'perl Makefile.PL' to create a Makefile for this package
 #
-# Copyright 2001-2006 by Wilson Snyder.  This program is free software;
+# Copyright 2001-2007 by Wilson Snyder.  This program is free software;
 # you can redistribute it and/or modify it under the terms of either the GNU
 # Lesser General Public License or the Perl Artistic License.
 
@@ -54,7 +54,7 @@ WriteMakefile(
 	      VERSION_FROM => 'Project.pm',
 	      EXE_FILES => ['project_dir', 'project_bin',],
 	      INSTALLSCRIPT => "$ENV{DIRPROJECT_PREFIX}/bin",
-	      PREREQ_PM => {'Pod::Text' => 0,
+	      PREREQ_PM => {'Pod::Usage' => 0,
 			},
 	      'dist'    => {COMPRESS => 'gzip -9f',
 			    SUFFIX   => '.gz', 

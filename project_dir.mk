@@ -1,8 +1,8 @@
-# $Id: project_dir.mk,v 1.7 2006/07/14 15:14:12 wsnyder Exp $
+# $Id: project_dir.mk 14 2007-04-03 15:30:08Z wsnyder $
 # DESCRIPTION: Dir::Project: Makefile include to define DIRPROJECT envvar
 ######################################################################
 #
-# Copyright 2001-2006 by Wilson Snyder.  This program is free software;
+# Copyright 2001-2007 by Wilson Snyder.  This program is free software;
 # you can redistribute it and/or modify it under the terms of either the GNU
 # General Public License or the Perl Artistic License.
 # 

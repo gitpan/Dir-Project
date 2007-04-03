@@ -8,6 +8,7 @@ project_dir
 project_dir.mk
 README
 t/00_pod.t
+t/01_manifest.t
 t/10_project.t
 t/20_project_dir.t
 t/30_project_bin.pl
