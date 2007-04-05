@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# $Id: 01_manifest.t 12 2007-01-31 22:01:59Z wsnyder $
+# $Id: 01_manifest.t 18 2007-04-05 01:03:17Z wsnyder $
 # DESCRIPTION: Perl ExtUtils: Type 'make test' to test this package
 #
 # Copyright 2007-2007 by Wilson Snyder.  This program is free software;
@@ -11,7 +11,7 @@ use Test;
 
 BEGIN { plan tests => 1 }
 
-if (!$ENV{VERILATOR_AUTHOR_SITE}) {
+if (!$ENV{DIRPROJECT_AUTHOR_SITE}) {
     skip("author only test (harmless)",1);
 } else {
     eval { use ExtUtils::Manifest; };

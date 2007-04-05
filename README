@@ -19,23 +19,28 @@ entirely at your own risk.
 Dir::Project provides a way to locate a source-controlled checkout
 directory (CVS, Subversion, Perforce, etc) using only the current
 working directory (cd).  This prevents users from having to set other
-environment variables when they switch between areas, and allows
-scripts and such inside the directory to be executed without changing
-the user's PATH.
+environment variables when they switch between areas.
+
+   Project_bin allows a single symlink to a user script to be placed in
+a global PATH.  Project_bin then automatically finds that script inside
+the source controlled area.  Different users, or different checkouts
+will execute the script in their areas.  Thus, problems with version
+mismatch across executing tools are eliminated.
 
      # One-time setup
      ln -s project_bin /global/dir/my_tool
      PATH = "/global/dir"
+     DIRPROJECT_PATH = "bin_under_project"
 
      # Usage
      cd project1
      project_dir --project
-        /path/to/project1
+          /path/to/project1
      my_tool my_args....   # Executes project1/.../my_tool
 
      cd project2
      project_dir --project
-        /path/to/project2
+          /path/to/project2
      my_tool my_args....   # Executes project2/.../my_tool
 
    You can also determine the project directory from a makefile:

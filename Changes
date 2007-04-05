@@ -3,6 +3,10 @@ Revision history for Perl extension Dir::Project.
 The contributors that suggested a given feature are shown in [].  [by ...]
 indicates the contributor was also the author of the fix; Thanks!
 
+* Log::Detect 3.002 2007/04/05
+
+****	Fix 'make test' issues on non-Linux systems.  [cpan-testers]
+
 * Log::Detect 3.001 2007/04/03
 
 ****	Fix --help to use Pod::Usage instead of depreciated pod2text.
@@ -12,7 +16,7 @@ indicates the contributor was also the author of the fix; Thanks!
 **	First public release.  (Has been internal-use for 5 years.)
 
 ----------------------------------------------------------------------
-$Id: Changes 15 2007-04-03 15:31:06Z wsnyder $
+$Id: Changes 18 2007-04-05 01:03:17Z wsnyder $
 DESCRIPTION: Documentation on change history for this package
 ----------------------------------------------------------------------
 

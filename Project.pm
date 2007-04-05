@@ -1,5 +1,5 @@
 # Dir::Project.pm -- Project's cvfs routine library
-# $Id: Project.pm 15 2007-04-03 15:31:06Z wsnyder $
+# $Id: Project.pm 19 2007-04-05 12:39:36Z wsnyder $
 ######################################################################
 #
 # Copyright 2001-2007 by Wilson Snyder.  This program is free software;
@@ -34,7 +34,7 @@ use vars qw($VERSION $Debug $Project %Env_Vars $Set_Defaults);
 ######################################################################
 #### Configuration Section
 
-$VERSION = '3.001';
+$VERSION = '3.002';
 
 # List of all environment variables we might generate
 %Env_Vars = (

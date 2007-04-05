@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # project_bin - Run a program in the project bin directory
-# $Id: project_bin 14 2007-04-03 15:30:08Z wsnyder $
+# $Id: project_bin 18 2007-04-05 01:03:17Z wsnyder $
 ######################################################################
 #
 # Copyright 2001-2007 by Wilson Snyder.  This program is free software;
@@ -23,14 +23,6 @@ use vars qw ($Debug $VERSION);
 
 ######################################################################
 # configuration
-
-if (!$ENV{DIRPROJECT_PATH} && $ENV{VERILATOR_AUTHOR_SITE}) {
-    # Local backward compatibility.  May be removed ~2006/08/14.
-    $ENV{DIRPROJECT_PATH} ||= ("project/hw/utils/obj_$ENV{DIRPROJECT_ARCH}"
-			       .":project/hw/utils"
-			       .":project/sw/utils"
-			       .":project/impl/utils");
-}
 
 $ENV{DIRPROJECT_PREFIX} or die "%Error: project_bin: DIRPROJECT_PREFIX not in environment\n";
 $ENV{DIRPROJECT_PATH}   or die "%Error: project_bin: DIRPROJECT_PATH not in environment\n";
@@ -91,7 +83,7 @@ exec $program_wdir, @params;
 ######################################################################
 
 sub usage {
-    print '$Id: project_bin 14 2007-04-03 15:30:08Z wsnyder $ ', "\n";
+    print '$Id: project_bin 18 2007-04-05 01:03:17Z wsnyder $ ', "\n";
     pod2usage(-verbose=>2, -exitval => 2);
     exit (1);
 }
@@ -128,24 +120,37 @@ project_bin - Call a Dir::Project specific program
 
 =head1 DESCRIPTION
 
-L<project_bin> is used to call another project specific program, where the
-name of the program is simply the name that project_bin is invoked as.
-
-Before the program is called, the DIRPROJECT environment variable is set,
-which has the link to the current project area.  The DIRPROJECT_PATH
-directories are then searched to find the executable specified.  See
-L<Dir::Project> program_bin() for more details.
-
-This enables multiple versions of the executable to exist in different
-project directories and everything to sort itself out.
+L<project_bin> is used to call another project specific program under the
+current project as determined with L<project_dir>.
 
 This program is not usually called directly.  Instead project_bin is
 symlinked as the name of the program to be executed.  project_bin then uses
 that name to determine the program to be called.
 
-If project_bin can't determine the project, it tries to execute
-{program}__notfound which is generally a link to a version of the program
-that is the default for when outside a project.
+This process enables multiple versions of a program to exist in different
+project directories.  The global path only contains a simple non-changing
+symlink which everyone can share.
+
+=head1 EXAMPLE
+
+Assume C<prog> is to be executed.  The shell uses the standard PATH
+environment variable and finds C<prog> under $DIRPROJECT_PREFIX/bin/prog.
+$DIRPROJECT_PREFIX/bin/prog is installed as a simple symlink to
+L<project_bin>.  Thus the shell executes project_bin.
+
+Project_bin then determines the current project and sets the DIRPROJECT
+environment variable, which has the link to the current project area.  See
+L<Dir::Project> program_bin() for more details.
+
+Project_bin then uses the DIRPROJECT directory in combination with the
+DIRPROJECT_PATH to search for C<prog>, the name project_bin was invoked
+under.  C<prog> is then executed with all of the arguments passed through
+project_bin.
+
+If project_bin couldn't determine the project or find the binary using
+DIRPROJECT_PATH, it tries to execute
+$DIRPROJECT_PREFIX/bin/C<prog>__notfound which is generally a link to a
+version of C<prog> that is the default for when outside a project.
 
 =head1 ARGUMENTS
 
