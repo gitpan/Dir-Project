@@ -3,6 +3,12 @@ Revision history for Perl extension Dir::Project.
 The contributors that suggested a given feature are shown in [].  [by ...]
 indicates the contributor was also the author of the fix; Thanks!
 
+* Log::Detect 3.010 2007/04/24
+
+***	Allow DIRPROJECT_PATH to include absolute directories. [Bryce Denney]
+
+***	Removed unused $Dir::Project::Set_Defaults variable.
+
 * Log::Detect 3.002 2007/04/05
 
 ****	Fix 'make test' issues on non-Linux systems.  [cpan-testers]
@@ -16,7 +22,7 @@ indicates the contributor was also the author of the fix; Thanks!
 **	First public release.  (Has been internal-use for 5 years.)
 
 ----------------------------------------------------------------------
-$Id: Changes 18 2007-04-05 01:03:17Z wsnyder $
+$Id: Changes 23 2007-04-24 18:03:44Z wsnyder $
 DESCRIPTION: Documentation on change history for this package
 ----------------------------------------------------------------------
 

@@ -1,5 +1,5 @@
 # Dir::Project.pm -- Project's cvfs routine library
-# $Id: Project.pm 19 2007-04-05 12:39:36Z wsnyder $
+# $Id: Project.pm 23 2007-04-24 18:03:44Z wsnyder $
 ######################################################################
 #
 # Copyright 2001-2007 by Wilson Snyder.  This program is free software;
@@ -29,20 +29,17 @@ use IO::Dir;
 use Sys::Hostname;
 
 use strict;
-use vars qw($VERSION $Debug $Project %Env_Vars $Set_Defaults);
+use vars qw($VERSION $Debug $Project %Env_Vars);
 
 ######################################################################
 #### Configuration Section
 
-$VERSION = '3.002';
+$VERSION = '3.010';
 
 # List of all environment variables we might generate
 %Env_Vars = (
 	     DIRPROJECT		=> \&_get_project,
 	     );
-
-# Set to 0 to suppress defaulting of variables
-$Set_Defaults = 1 if (!defined $Set_Defaults);
 
 ######################################################################
 #### Begin
@@ -70,7 +67,7 @@ sub get_set_all {
     _get_set("DIRPROJECT");
     # DIRPROJECT now correct
     foreach (sort (keys %Env_Vars)) {
-	print "$_ = $ENV{$_}\n" if $Debug && $Debug > 1;
+	print "$_ = ",($ENV{$_}||''),"\n" if $Debug && $Debug > 1;
     }
 }
 
@@ -93,13 +90,14 @@ sub program_paths {
     $params{default_exe} ||= Dir::Project::default_script_dir()."/$params{program}__notfound";
 
     my @paths;
-    if (defined $Project) {
-	my $path = ($ENV{DIRPROJECT_PATH}||"");
-	foreach my $ppath (split (':', $path)) {
-	    my $try = $ppath."/".$params{program};
-	    $try =~ s/^project/$Project/;
-	    push @paths, $try;
+    my $path = ($ENV{DIRPROJECT_PATH}||"");
+    foreach my $ppath (split (':', $path)) {
+	my $try = $ppath."/".$params{program};
+	if ($try =~ m!^project/!) {  # Else we allow absolute paths also
+	    next if !defined $Project;
+	    $try =~ s!^project!$Project!;
 	}
+	push @paths, $try;
     }
     push @paths, $params{default_exe};
     
@@ -232,16 +230,6 @@ sub _get_project {
     return $Project;
 }
 
-sub _get_proj_dir {
-    my $dirname = shift;
-
-    my $value = undef;
-    if ($ENV{DIRPROJECT} && -r "$ENV{DIRPROJECT}/$dirname") {
-	$value = "$ENV{DIRPROJECT}/$dirname";
-    }
-    return $value
-}
-
 ######################################################################
 ######################################################################
 ######################################################################
@@ -286,7 +274,7 @@ sub _get_root {
 	print "_get_root: BINDIR=$cwd\n" if $Debug && $envvar eq "DIRPROJECT";
 	$dir = $cwd."/.";
 	while ($dir =~ s/^(.*)\/.*$/$1/) {
-	    last if $dir =~ m!/homes?/?$!;   # Else automounter goes bezerk
+	    last if $dir =~ m!/homes?/?$!;   # Else automounter goes berserk
 	    if (-r "$dir/Project_Root") {
 		$value = $dir;
 		$comment = "set from Project_Root under bin dir";
@@ -319,10 +307,6 @@ sub _resolve {
     my $file = shift;
 
     $file = abs_path($file);
-    if ($file =~ m!^/sim!) {
-	my $hostname = hostname();
-	$file =~ s!/sim!/nfs/$hostname/sim!;
-    }
     return $file if ($file =~ /^\//);
     if (readlink $file) {
 	$file = readlink $file;
@@ -449,7 +433,9 @@ Set when project_bin is invoked with --debug.
 A colon-separated list of directories that program_paths() and
 L<project_bin> should search for executables within.  Generally contains a
 leading project/ in front of all directories, this will be converted to
-$DIRPROJECT.  Set by the user's .bashrc or similar login script.
+$DIRPROJECT, though it may also be absolute directory names to search for
+if the project is not found.  Set by the user's .bashrc or similar login
+script.
 
 =item DIRPROJECT_PREFIX
 

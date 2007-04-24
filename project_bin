@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # project_bin - Run a program in the project bin directory
-# $Id: project_bin 18 2007-04-05 01:03:17Z wsnyder $
+# $Id: project_bin 22 2007-04-24 17:35:39Z wsnyder $
 ######################################################################
 #
 # Copyright 2001-2007 by Wilson Snyder.  This program is free software;
@@ -14,7 +14,6 @@
 # 
 ######################################################################
 
-BEGIN { $Dir::Project::Set_Defaults = 0; }
 use Pod::Usage;
 
 use Dir::Project;
@@ -83,7 +82,7 @@ exec $program_wdir, @params;
 ######################################################################
 
 sub usage {
-    print '$Id: project_bin 18 2007-04-05 01:03:17Z wsnyder $ ', "\n";
+    print '$Id: project_bin 22 2007-04-24 17:35:39Z wsnyder $ ', "\n";
     pod2usage(-verbose=>2, -exitval => 2);
     exit (1);
 }
