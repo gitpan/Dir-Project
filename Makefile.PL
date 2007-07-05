@@ -1,4 +1,4 @@
-# $Id: Makefile.PL 14 2007-04-03 15:30:08Z wsnyder $
+# $Id: Makefile.PL 26 2007-07-05 15:25:58Z wsnyder $
 # DESCRIPTION: Perl ExtUtils: Type 'perl Makefile.PL' to create a Makefile for this package
 #
 # Copyright 2001-2007 by Wilson Snyder.  This program is free software;
@@ -11,10 +11,10 @@ use Carp;
 
 sub MY::postamble {
 "
-XDESTDIR = $ENV{DIRPROJECT_PREFIX}
+INSTALLLIB = \$(PERLPREFIX)/lib
 
 install::
-	cp project_dir.mk \$(XDESTDIR)/lib
+	cp project_dir.mk \$(INSTALLLIB)
 
 DIST_DEFAULT += manifest
 
@@ -53,7 +53,6 @@ WriteMakefile(
 	      ABSTRACT  => 'Determine utility paths relative to version controlled directories',
 	      VERSION_FROM => 'Project.pm',
 	      EXE_FILES => ['project_dir', 'project_bin',],
-	      INSTALLSCRIPT => "$ENV{DIRPROJECT_PREFIX}/bin",
 	      PREREQ_PM => {'Pod::Usage' => 0,
 			},
 	      'dist'    => {COMPRESS => 'gzip -9f',

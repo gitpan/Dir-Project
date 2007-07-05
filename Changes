@@ -3,6 +3,13 @@ Revision history for Perl extension Dir::Project.
 The contributors that suggested a given feature are shown in [].  [by ...]
 indicates the contributor was also the author of the fix; Thanks!
 
+* Log::Detect 3.011 2007/07/05
+
+***	Remove use of DIRPROJECT_PREFIX in make install.  [Joel Martin]
+	The Makefile now uses INSTALLLIB as the location for installing
+	makefiles to more closely match the Perl standard; you may need
+	to change this variable, or PREFIX to install globally.
+
 * Log::Detect 3.010 2007/04/24
 
 ***	Allow DIRPROJECT_PATH to include absolute directories. [Bryce Denney]
@@ -22,7 +29,7 @@ indicates the contributor was also the author of the fix; Thanks!
 **	First public release.  (Has been internal-use for 5 years.)
 
 ----------------------------------------------------------------------
-$Id: Changes 23 2007-04-24 18:03:44Z wsnyder $
+$Id: Changes 26 2007-07-05 15:25:58Z wsnyder $
 DESCRIPTION: Documentation on change history for this package
 ----------------------------------------------------------------------
 
