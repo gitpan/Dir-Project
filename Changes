@@ -3,39 +3,42 @@ Revision history for Perl extension Dir::Project.
 The contributors that suggested a given feature are shown in [].  [by ...]
 indicates the contributor was also the author of the fix; Thanks!
 
-* Log::Detect 3.011 2007/07/05
+* Dir::Project 3.012 2008/06/10
+
+****	Documentation updates.
+
+* Dir::Project 3.011 2007/07/05
 
 ***	Remove use of DIRPROJECT_PREFIX in make install.  [Joel Martin]
 	The Makefile now uses INSTALLLIB as the location for installing
 	makefiles to more closely match the Perl standard; you may need
 	to change this variable, or PREFIX to install globally.
 
-* Log::Detect 3.010 2007/04/24
+* Dir::Project 3.010 2007/04/24
 
 ***	Allow DIRPROJECT_PATH to include absolute directories. [Bryce Denney]
 
 ***	Removed unused $Dir::Project::Set_Defaults variable.
 
-* Log::Detect 3.002 2007/04/05
+* Dir::Project 3.002 2007/04/05
 
 ****	Fix 'make test' issues on non-Linux systems.  [cpan-testers]
 
-* Log::Detect 3.001 2007/04/03
+* Dir::Project 3.001 2007/04/03
 
 ****	Fix --help to use Pod::Usage instead of depreciated pod2text.
 
-* Log::Detect 3.000 2006/07/14
+* Dir::Project 3.000 2006/07/14
 
 **	First public release.  (Has been internal-use for 5 years.)
 
 ----------------------------------------------------------------------
-$Id: Changes 26 2007-07-05 15:25:58Z wsnyder $
 DESCRIPTION: Documentation on change history for this package
 ----------------------------------------------------------------------
 
 This uses outline mode in Emacs.  See C-h m [M-x describe-mode].
 
-Copyright 2001-2007 by Wilson Snyder.  This program is free software;
+Copyright 2001-2008 by Wilson Snyder.  This program is free software;
 you can redistribute it and/or modify it under the terms of either the GNU
 General Public License or the Perl Artistic License.
 

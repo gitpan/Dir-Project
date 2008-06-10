@@ -1,16 +1,5 @@
 #!/usr/bin/perl -w
-# $Id: project_dir 14 2007-04-03 15:30:08Z wsnyder $
-######################################################################
-#
-# Copyright 2001-2007 by Wilson Snyder.  This program is free software;
-# you can redistribute it and/or modify it under the terms of either the GNU
-# General Public License or the Perl Artistic License.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
+# See copyright, etc in below POD section.
 ######################################################################
 
 @INC = ();
@@ -25,6 +14,8 @@ use vars qw ($Debug $VERSION);
 ######################################################################
 # configuration
 
+$VERSION = '3.012';
+
 ######################################################################
 # main
 
@@ -33,6 +24,7 @@ Getopt::Long::config ("no_auto_abbrev");
 if (!GetOptions (
 		 "help"		=> \&usage,
 		 "debug"	=> \&debug,
+		 "version"	=> sub { print "Version $VERSION\n"; },
 		 "cat"		=> \&Dir::Project::makefile_cat,  #debug
 		 "project"	=> sub{
 		   Dir::Project::get_set_all();
@@ -51,7 +43,7 @@ exit(0);
 ######################################################################
 
 sub usage {
-    print '$Id: project_dir 14 2007-04-03 15:30:08Z wsnyder $ ', "\n";
+    print "Version $VERSION\n";
     pod2usage(-verbose=>2, -exitval => 2);
     exit (1);
 }
@@ -102,6 +94,14 @@ settings and print that filename.
 
 Print the contents of what --makefile would create.
 
+=item --help
+
+Displays this message and program version and exits.
+
+=item --version
+
+Displays program version and exits.
+
 =back
 
 =head1 ENVIRONMENT
@@ -121,13 +121,18 @@ See L<Dir::Project> for other relevant environment variables.
 
 =head1 DISTRIBUTION
 
-Dir-Project is part of the L<http://www.veripool.com/> free EDA software
+Dir-Project is part of the L<http://www.veripool.org/> free EDA software
 tool suite.  The latest version is available from CPAN and from
-L<http://www.veripool.com/>.
+L<http://www.veripool.org/>.
 
-Copyright 2001-2007 by Wilson Snyder.  This package is free software; you
+Copyright 2001-2008 by Wilson Snyder.  This package is free software; you
 can redistribute it and/or modify it under the terms of either the GNU
 Lesser General Public License or the Perl Artistic License.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+more details.
 
 =head1 AUTHORS
 

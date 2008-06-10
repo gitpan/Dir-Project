@@ -1,17 +1,6 @@
 #!/usr/bin/perl -w
 # project_bin - Run a program in the project bin directory
-# $Id: project_bin 22 2007-04-24 17:35:39Z wsnyder $
-######################################################################
-#
-# Copyright 2001-2007 by Wilson Snyder.  This program is free software;
-# you can redistribute it and/or modify it under the terms of either the GNU
-# General Public License or the Perl Artistic License.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
+# See copyright, etc in below POD section.
 ######################################################################
 
 use Pod::Usage;
@@ -23,8 +12,7 @@ use vars qw ($Debug $VERSION);
 ######################################################################
 # configuration
 
-$ENV{DIRPROJECT_PREFIX} or die "%Error: project_bin: DIRPROJECT_PREFIX not in environment\n";
-$ENV{DIRPROJECT_PATH}   or die "%Error: project_bin: DIRPROJECT_PATH not in environment\n";
+$VERSION = '3.012';
 
 ######################################################################
 # main
@@ -38,6 +26,9 @@ while(defined($_ = shift)) {
     elsif (/^--?project_bin-help/) {
 	usage();
     }
+    elsif (/^--?project_bin-version/) {
+	print "Version $VERSION\n";
+    }
     elsif (/^--?debug/) {
 	# Turn on our debug and pass to application too
 	debug();
@@ -47,6 +38,9 @@ while(defined($_ = shift)) {
 	push @params, $_;
     }
 }
+
+$ENV{DIRPROJECT_PREFIX} or die "%Error: project_bin: DIRPROJECT_PREFIX not in environment\n";
+$ENV{DIRPROJECT_PATH}   or die "%Error: project_bin: DIRPROJECT_PATH not in environment\n";
 
 my $program = $0;
 $program =~ s/^.*[\\\/]//g;  # Strip path
@@ -82,7 +76,7 @@ exec $program_wdir, @params;
 ######################################################################
 
 sub usage {
-    print '$Id: project_bin 22 2007-04-24 17:35:39Z wsnyder $ ', "\n";
+    print "Version $VERSION\n";
     pod2usage(-verbose=>2, -exitval => 2);
     exit (1);
 }
@@ -180,13 +174,18 @@ See L<Dir::Project> for the list of relevant environment variables.
 
 =head1 DISTRIBUTION
 
-Dir-Project is part of the L<http://www.veripool.com/> free EDA software
+Dir-Project is part of the L<http://www.veripool.org/> free EDA software
 tool suite.  The latest version is available from CPAN and from
-L<http://www.veripool.com/>.
+L<http://www.veripool.org/>.
 
-Copyright 2001-2007 by Wilson Snyder.  This package is free software; you
+Copyright 2001-2008 by Wilson Snyder.  This package is free software; you
 can redistribute it and/or modify it under the terms of either the GNU
 Lesser General Public License or the Perl Artistic License.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+more details.
 
 =head1 AUTHORS
 

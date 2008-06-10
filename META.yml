@@ -1,7 +1,7 @@
 # http://module-build.sourceforge.net/META-spec.html
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         Dir-Project
-version:      3.011
+version:      3.012
 version_from: Project.pm
 installdirs:  site
 requires:

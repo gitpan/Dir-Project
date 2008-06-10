@@ -1,16 +1,4 @@
-# Dir::Project.pm -- Project's cvfs routine library
-# $Id: Project.pm 27 2007-07-05 15:26:33Z wsnyder $
-######################################################################
-#
-# Copyright 2001-2007 by Wilson Snyder.  This program is free software;
-# you can redistribute it and/or modify it under the terms of either the GNU
-# General Public License or the Perl Artistic License.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
+# See copyright, etc in below POD section.
 ######################################################################
 
 package Dir::Project;
@@ -34,7 +22,7 @@ use vars qw($VERSION $Debug $Project %Env_Vars);
 ######################################################################
 #### Configuration Section
 
-$VERSION = '3.011';
+$VERSION = '3.012';
 
 # List of all environment variables we might generate
 %Env_Vars = (
@@ -100,7 +88,7 @@ sub program_paths {
 	push @paths, $try;
     }
     push @paths, $params{default_exe};
-    
+
     return @paths;
 }
 
@@ -137,7 +125,7 @@ sub _makefile_lines {
     foreach (sort (keys %Env_Vars)) {
 	print $fh "export $_\n";
     }
-}    
+}
 
 sub makefile {
     # Produce a makefile that will be included by project_bin.mk
@@ -239,7 +227,7 @@ sub _get_root {
     my $envvar = shift;		# if $ENV{envvar}...
     my $linkfile = shift;	# if readlink $linkfile...
     my $default = shift;
-    # 
+    #
 
     my $value = undef;
     my $comment = "undef";
@@ -399,7 +387,7 @@ This does not require project_bin to be used to call the program.
 
     use Dir::Project;
     BEGIN {
-        Dir::Project::get_set_project(); 
+        Dir::Project::get_set_project();
         $Project = $ENV{DIRPROJECT} or die "%Error: Can't determine PROJECT: Call me with project_bin, stopped";
     }
     ....
@@ -452,13 +440,18 @@ The last executable run by L<project_bin>.  Set by L<project_bin>.
 
 =head1 DISTRIBUTION
 
-Dir-Project is part of the L<http://www.veripool.com/> free EDA software
+Dir-Project is part of the L<http://www.veripool.org/> free EDA software
 tool suite.  The latest version is available from CPAN and from
-L<http://www.veripool.com/>.
+L<http://www.veripool.org/>.
 
-Copyright 2001-2007 by Wilson Snyder.  This package is free software; you
+Copyright 2001-2008 by Wilson Snyder.  This package is free software; you
 can redistribute it and/or modify it under the terms of either the GNU
 Lesser General Public License or the Perl Artistic License.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+more details.
 
 =head1 AUTHORS
 

@@ -1,8 +1,7 @@
 #!/usr/bin/perl -w
-# $Id: 40_make.t 18 2007-04-05 01:03:17Z wsnyder $
 # DESCRIPTION: Perl ExtUtils: Type 'make test' to test this package
 #
-# Copyright 2006-2007 by Wilson Snyder.  This program is free software;
+# Copyright 2006-2008 by Wilson Snyder.  This program is free software;
 # you can redistribute it and/or modify it under the terms of either the GNU
 # General Public License or the Perl Artistic License.
 

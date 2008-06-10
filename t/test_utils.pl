@@ -1,7 +1,6 @@
-# $Id: test_utils.pl 14 2007-04-03 15:30:08Z wsnyder $
 # DESCRIPTION: Perl ExtUtils: Common routines required by package tests
 #
-# Copyright 2000-2007 by Wilson Snyder.  This program is free software;
+# Copyright 2000-2008 by Wilson Snyder.  This program is free software;
 # you can redistribute it and/or modify it under the terms of either the GNU
 # General Public License or the Perl Artistic License.
 
@@ -22,15 +21,15 @@ if (!$ENV{HARNESS_ACTIVE}) {
 }
 
 sub test_setup_area {
-    mkdir   				'test_dir/prefix',0777;
-    mkdir   				'test_dir/prefix/bin',0777;
+    mkdir				'test_dir/prefix',0777;
+    mkdir				'test_dir/prefix/bin',0777;
     symlink "${Dist}/project_dir",	'test_dir/prefix/bin/project_dir';
     symlink "${Dist}/project_bin",	'test_dir/prefix/bin/project_bin';
     symlink  "project_bin",		'test_dir/prefix/bin/testprog';
-    mkdir   				'test_dir/prefix/lib',0777;
+    mkdir				'test_dir/prefix/lib',0777;
     symlink "${Dist}/project_dir.mk",	'test_dir/prefix/lib/project_dir.mk';
-    mkdir   				'test_dir/checkout',0777;
-    mkdir   				'test_dir/checkout/bin',0777;
+    mkdir				'test_dir/checkout',0777;
+    mkdir				'test_dir/checkout/bin',0777;
     symlink "${Dist}/t/30_project_bin.pl",'test_dir/checkout/bin/testprog';
     symlink 'checkout',			'test_dir/project';
     $ENV{DIRPROJECT_PREFIX} = "${Dist}/test_dir/prefix";
@@ -46,6 +45,14 @@ sub run_system {
     system "$command";
     my $status = $?;
     ($status == 0) or die "%Error: Command Failed $command, $status, stopped";
+}
+
+sub wholefile {
+    my $file = shift;
+    my $fh = IO::File->new ($file) or die "%Error: $! $file";
+    my $wholefile = join('',$fh->getlines());
+    $fh->close();
+    return $wholefile;
 }
 
 sub files_identical {
