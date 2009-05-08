@@ -1,11 +1,14 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Dir-Project
-version:      3.012
-version_from: Project.pm
-installdirs:  site
-requires:
+--- #YAML:1.0
+name:                Dir-Project
+version:             3.013
+abstract:            Determine utility paths relative to version controlled directories
+license:             ~
+author:              
+    - Wilson Snyder <wsnyder@wsnyder.org>
+generated_by:        ExtUtils::MakeMaker version 6.44
+distribution_type:   module
+requires:     
     Pod::Usage:                    0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.17
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

@@ -3,6 +3,10 @@ Revision history for Perl extension Dir::Project.
 The contributors that suggested a given feature are shown in [].  [by ...]
 indicates the contributor was also the author of the fix; Thanks!
 
+* Dir::Project 3.013 2009/05/08
+
+**	This package is now licensed under LGPL v3 and/or Artistic v2.0.
+
 * Dir::Project 3.012 2008/06/10
 
 ****	Documentation updates.
@@ -38,9 +42,9 @@ DESCRIPTION: Documentation on change history for this package
 
 This uses outline mode in Emacs.  See C-h m [M-x describe-mode].
 
-Copyright 2001-2008 by Wilson Snyder.  This program is free software;
+Copyright 2001-2009 by Wilson Snyder.  This program is free software;
 you can redistribute it and/or modify it under the terms of either the GNU
-General Public License or the Perl Artistic License.
+Lesser General Public License Version 3 or the Perl Artistic License Version 2.0.
 
 Local variables:
 mode: outline
