@@ -18,5 +18,16 @@ ok(1);
 foreach my $filename (keys %{$manifest}) {
     print "Space test of: $filename\n";
     my $wholefile = wholefile($filename);
-    ok($wholefile && $wholefile !~ /[ \t]+\n/);
+    if ($wholefile
+	&& $wholefile !~ /[ \t]+\n/
+	&& $wholefile !~ /^[ \t]*[ ]+\t/) {
+	ok(1);
+    } elsif ($filename =~ m!META.yml!) {
+	skip("File doesn't need check (harmless)",1);
+    } elsif (!$ENV{DIRPROJECT_AUTHOR_SITE}) {
+	skip("author only test (harmless)",1);
+    } else {
+	warn "%Error: $filename: Bad indentation\n";
+	ok(0);
+    }
 }

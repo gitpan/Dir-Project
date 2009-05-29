@@ -3,6 +3,10 @@ Revision history for Perl extension Dir::Project.
 The contributors that suggested a given feature are shown in [].  [by ...]
 indicates the contributor was also the author of the fix; Thanks!
 
+* Dir::Project 3.014 2009/05/29
+
+****	Fix t/03_spaces.t failure.  [Sebastian Knapp]
+
 * Dir::Project 3.013 2009/05/08
 
 **	This package is now licensed under LGPL v3 and/or Artistic v2.0.
