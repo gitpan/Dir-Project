@@ -12,7 +12,7 @@ use vars qw ($Debug $VERSION);
 ######################################################################
 # configuration
 
-$VERSION = '3.014';
+$VERSION = '3.015';
 
 ######################################################################
 # main
@@ -108,8 +108,19 @@ project_bin - Call a Dir::Project specific program
 
 =head1 SYNOPSIS
 
-    [program] [program_arguments]
-    [program] --project_bin-help
+  [program] [program_arguments]
+  [program] --project_bin-help
+
+  # Example script dispatching
+  cd ~/project1
+  project_dir --project
+     /path/to/project1
+  my_tool my_args....   # Executes project1/.../my_tool
+
+  cd ~/project2
+  project_dir --project
+     /path/to/project2
+  my_tool my_args....   # Executes project2/.../my_tool
 
 =head1 DESCRIPTION
 

@@ -22,7 +22,7 @@ use vars qw($VERSION $Debug $Project %Env_Vars);
 ######################################################################
 #### Configuration Section
 
-$VERSION = '3.014';
+$VERSION = '3.015';
 
 # List of all environment variables we might generate
 %Env_Vars = (
@@ -319,16 +319,95 @@ Dir::Project - Project Environment determination
 
 =head1 SYNOPSIS
 
+  # Perl
   use Dir::Project;
   Dir::Project::get_set_all();
+
+  # Makefiles
+  include $(DIRPROJECT_PREFIX)/lib/project_dir.mk
+
+  # Example script dispatching
+  cd ~/project1
+  project_dir --project
+     /path/to/project1
+  my_tool my_args....   # Executes project1/.../my_tool
+
+  cd ~/project2
+  project_dir --project
+     /path/to/project2
+  my_tool my_args....   # Executes project2/.../my_tool
 
 =head1 DESCRIPTION
 
 L<Dir::Project> provides a way to locate a source-controlled directory
 (CVS, Subversion, Perforce, etc) using only the current working directory
 (cd).  This prevents users from having to set other environment variables
-when they switch between areas, and allows scripts and such inside the
-directory to be executed without changing the user's PATH.
+when they switch between areas.
+
+Project_bin allows a single symlink to a user script to be placed in
+a global PATH.  Project_bin then automatically finds that script inside
+the source controlled area.  Different users, or different checkouts
+will execute the script in their areas.  Thus, problems with version
+mismatch across executing tools are eliminated.
+
+=head1 ENVIORNMENT SETUP
+
+To use project_bin, you shoud make the following settings in your .bashrc
+or equivelent group file:
+
+   export DIRPROJECT_PREFIX=/prefix	# Any global project prefix
+   export PATH=$DIRPROJECT_PREFIX/bin:$PATH
+
+Then for each executable that lives in your source control area that you
+wish to dispatch to, you create a simlink:
+
+   ln -s project_bin $DIRPROJECT_PREFIX/dir/my_tool
+
+More details in L<project_bin>.
+
+=head1 USAGE IN SCRIPTS
+
+L<Dir::Project> may be used three different ways inside scripts.
+
+First, a script may be totally ignorant of Dir::Project.  Simply by placing
+it in a directory that is part of DIRPROJECT_PATH, and creating a symlink
+from project_bin, it will be executed automatically based on a search
+starting at the current directory.
+
+Second, a script that is always executed by project_bin can get the root of
+the checkout by using $DIRPROJECT.  Generally I cache the value of DIRPROJECT
+in a variable called simply $Project.
+
+    BEGIN {
+        $Project = $ENV{DIRPROJECT} or die "%Error: Can't determine DIRPROJECT: Call me with project_bin, stopped";
+    }
+    ....
+    my $path_to_file = "$Project/under/project/file/path...";
+
+Third, a script may determine DIRPROJECT itself by using Dir::Project directly.
+This does not require project_bin to be used to call the program.
+
+    use Dir::Project;
+    BEGIN {
+        Dir::Project::get_set_project();
+        $Project = $ENV{DIRPROJECT} or die "%Error: Can't determine PROJECT: Call this under a project, stopped";
+    }
+    ....
+    my $path_to_file = "$Project/under/project/file/path...";
+
+=head1 USAGE IN MAKEFILES
+
+L<Dir::Project> may be called from inside a Makefile.  The include will set
+the DIRPROJECT variable that can then be used to replace absolute paths
+inside the makefile.
+
+    include $(DIRPROJECT_PREFIX)/lib/project_dir.mk
+    # That include will set $(DIRPROJECT) which you can then use
+    # to find files underneath the repository checkout.
+    ....
+    PATHS = $(DIRPROJECT)/path/under/repo
+
+=head1 METHODS
 
 =over 4
 
@@ -364,45 +443,6 @@ Remove all environment variables.
 
 =back
 
-=head1 USAGE IN SCRIPTS
-
-L<Dir::Project> may be used three different ways inside scripts.
-
-First, a script may be totally ignorant of Dir::Project.  Simply by placing
-it in a directory that is part of DIRPROJECT_PATH, and creating a symlink
-from project_bin, it will be executed automatically based on the cwd.
-
-Second, a script that is always executed by project_bin can get the root of
-the checkout by using $DIRPROJECT.  Generally I cache the value of DIRPROJECT
-in a variable called simply $Project.
-
-    BEGIN {
-        $Project = $ENV{DIRPROJECT} or die "%Error: Can't determine DIRPROJECT: Call me with project_bin, stopped";
-    }
-    ....
-    my $path_to_file = "$Project/under/project/file/path...";
-
-Third, a script may determine DIRPROJECT itself by using Dir::Project directly.
-This does not require project_bin to be used to call the program.
-
-    use Dir::Project;
-    BEGIN {
-        Dir::Project::get_set_project();
-        $Project = $ENV{DIRPROJECT} or die "%Error: Can't determine PROJECT: Call me with project_bin, stopped";
-    }
-    ....
-    my $path_to_file = "$Project/under/project/file/path...";
-
-=head1 USAGE IN MAKEFILES
-
-L<Dir::Project> may be called from inside a Makefile.  The include will set
-the DIRPROJECT variable that can then be used to replace absolute paths
-inside the makefile.
-
-    include $(DIRPROJECT_PREFIX)/lib/project_dir.mk
-    ....
-    PATHS = $(DIRPROJECT)/...
-
 =head1 ENVIRONMENT
 
 =over 4
@@ -431,6 +471,12 @@ A global directory like the --prefix passed to most configure scripts.
 Used by program_paths() and L<project_bin> to create the default
 $DIRPROJECT_PREFIX/bin/{program}__not_found link.  Set by the user's
 .bashrc or similar login script.
+
+=item DIRPROJECT_PROJECTDIREXE
+
+Path and executable for L<project_dir>.  Used by project_dir.mk.  Generally
+can be left unset, so it will default to just project_dir (without any
+directory prefix) so it will be found using PATH.
 
 =item DIRPROJECT_EXE
 

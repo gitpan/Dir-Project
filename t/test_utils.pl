@@ -34,6 +34,7 @@ sub test_setup_area {
     symlink 'checkout',			'test_dir/project';
     $ENV{DIRPROJECT_PREFIX} = "${Dist}/test_dir/prefix";
     $ENV{DIRPROJECT_PATH} = "project/bin";
+    $ENV{DIRPROJECT_PROJECTDIREXE} = "${PERL} $ENV{DIRPROJECT_PREFIX}/bin/project_dir";
 }
 
 ######################################################################

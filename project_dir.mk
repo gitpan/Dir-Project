@@ -19,9 +19,8 @@ ifndef _DIRPROJECT_MK_
      # first time, not called from a submake, so generate the variables
      # Call project bin, it will generate a include file and return the
      # filename.
-     _DIRPROJECT_MKFILE_ := $(shell \
-		$(DIRPROJECT_PREFIX)/bin/project_dir \
-		--makefile)
+     DIRPROJECT_PROJECTDIREXE ?= project_dir
+     _DIRPROJECT_MKFILE_ := $(shell $(DIRPROJECT_PROJECTDIREXE) --makefile)
      export _DIRPROJECT_MKFILE_
      # Include the file it requested
      include $(_DIRPROJECT_MKFILE_)

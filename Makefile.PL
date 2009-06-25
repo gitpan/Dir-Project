@@ -17,9 +17,11 @@ install::
 
 DIST_DEFAULT += manifest
 
-README: readme.texi
+README: Project.pm
 	-$(RM_RF) $@
-	makeinfo $< --output $@ --no-headers --no-validate
+	pod2text --loose $< > $@
+
+dist: distcheck README
 
 ## Maintainer use:
 preexist:
