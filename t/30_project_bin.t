@@ -20,7 +20,7 @@ chdir 'test_dir';
     ok($out =~ /DESCRIPTION/);
 }
 {
-    my $out = `${PERL} \$DIRPROJECT_PREFIX/bin/testprog arguments`;
+    my $out = `${PERL} '$ENV{DIRPROJECT_PREFIX}/bin/testprog' arguments`;
     # This will execute 30_project_bin.pl
     ok($out =~ m!hello world!);
 }

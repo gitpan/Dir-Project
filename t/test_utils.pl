@@ -6,12 +6,13 @@
 
 use IO::File;
 use Cwd;
-use vars qw($PERL);
+use strict;
+use vars qw($PERL $Dist);
 
-BEGIN { our $Dist = getcwd(); }
+BEGIN { $Dist = getcwd(); }
 mkdir 'test_dir',0777;
 
-$PERL = "$^X -I$Dist/blib/arch -I$Dist/blib/lib";
+$PERL = "$^X '-I$Dist/blib/arch' '-I$Dist/blib/lib'";
 
 if (!$ENV{HARNESS_ACTIVE}) {
     use lib '.';

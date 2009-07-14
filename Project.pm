@@ -22,7 +22,7 @@ use vars qw($VERSION $Debug $Project %Env_Vars);
 ######################################################################
 #### Configuration Section
 
-$VERSION = '3.015';
+$VERSION = '3.016';
 
 # List of all environment variables we might generate
 %Env_Vars = (

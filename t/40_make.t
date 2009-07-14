@@ -23,6 +23,10 @@ if (!$ENV{DIRPROJECT_AUTHOR_SITE}) {
     skip("author only test (harmless)",1);
     skip("author only test (harmless)",1);
 }
+elsif ($Dist =~ / /) {
+    skip("cwd contains spaces, which make hates",1);
+    skip("cwd contains spaces, which make hates",1);
+}
 else {
     my $out = `make -f ../t/40_make.mk default`;
     ok($out);
