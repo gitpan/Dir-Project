@@ -22,7 +22,7 @@ use vars qw($VERSION $Debug $Project %Env_Vars);
 ######################################################################
 #### Configuration Section
 
-$VERSION = '3.016';
+$VERSION = '3.017';
 
 # List of all environment variables we might generate
 %Env_Vars = (
@@ -350,10 +350,10 @@ the source controlled area.  Different users, or different checkouts
 will execute the script in their areas.  Thus, problems with version
 mismatch across executing tools are eliminated.
 
-=head1 ENVIORNMENT SETUP
+=head1 ENVIRONMENT SETUP
 
-To use project_bin, you shoud make the following settings in your .bashrc
-or equivelent group file:
+To use project_bin, you should make the following settings in your .bashrc
+or equivalent group file:
 
    export DIRPROJECT_PREFIX=/prefix	# Any global project prefix
    export PATH=$DIRPROJECT_PREFIX/bin:$PATH
@@ -406,6 +406,33 @@ inside the makefile.
     # to find files underneath the repository checkout.
     ....
     PATHS = $(DIRPROJECT)/path/under/repo
+
+=head1 USAGE IN EMACS / VERILOG-MODE
+
+Dir::Project may be used with the AUTOs of Verilog-Mode for Emacs.
+
+Install the contrib/dir-project.el file as described at the top of that
+file.  Restart Emacs.
+
+Now in your source tree create an input.vc file similar to the following:
+
+   -v project/path/to/rtl
+
+The various Verilog module files would then end in a reference to the file
+you just created:
+
+   // Local Variables:
+   // verilog-library-flags:("-f ../../../../input.vc")
+   // End:
+
+When AUTOs are expanded the input.vc file will be read.  The dir-project.el
+hook will change the project/ links to an absolute file and that will allow
+finding any submodules.
+
+An alternative technique is to use $DIRPROJECT/path/to/rtl in the input.vc
+and setting the DIRPROJECT environment variable.  However several EDA tools
+do not support environment variable expansion in .vc files, thus the above
+project/ technique.
 
 =head1 METHODS
 
@@ -490,7 +517,7 @@ Dir-Project is part of the L<http://www.veripool.org/> free EDA software
 tool suite.  The latest version is available from CPAN and from
 L<http://www.veripool.org/>.
 
-Copyright 2001-2009 by Wilson Snyder.  This package is free software; you
+Copyright 2001-2010 by Wilson Snyder.  This package is free software; you
 can redistribute it and/or modify it under the terms of either the GNU
 Lesser General Public License Version 3 or the Perl Artistic License Version 2.0.
 

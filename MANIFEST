@@ -1,5 +1,7 @@
 .gitignore
 Changes
+contrib/dir-project-init.el
+contrib/dir-project.el
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
