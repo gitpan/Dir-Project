@@ -3,6 +3,12 @@ Revision history for Perl extension Dir::Project.
 The contributors that suggested a given feature are shown in [].  [by ...]
 indicates the contributor was also the author of the fix; Thanks!
 
+* Dir::Project 3.020 2010/04/22
+
+***	Add project_bin --run option.  [Craig Barner]
+
+****	Fix Pod::Usage dependency, rt51024.  [Andreas Koenig]
+
 * Dir::Project 3.017 2010/01/12
 
 ***	Added contrib/dir-project.el.

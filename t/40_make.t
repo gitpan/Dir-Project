@@ -12,6 +12,7 @@ use Test;
 BEGIN { plan tests => 2 }
 BEGIN { require "t/test_utils.pl"; }
 
+delete $ENV{DIRPROJECT};  # Prevent failure if mis-pre-set by caller
 test_setup_area();
 
 chdir 'test_dir';

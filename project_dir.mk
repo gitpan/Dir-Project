@@ -17,7 +17,7 @@ ifndef _DIRPROJECT_MK_
 
   ifndef _DIRPROJECT_MKFILE_
      # first time, not called from a submake, so generate the variables
-     # Call project bin, it will generate a include file and return the
+     # Call project bin, it will generate an include file and return the
      # filename.
      DIRPROJECT_PROJECTDIREXE ?= project_dir
      _DIRPROJECT_MKFILE_ := $(shell $(DIRPROJECT_PROJECTDIREXE) --makefile)

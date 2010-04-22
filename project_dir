@@ -14,7 +14,7 @@ use vars qw ($Debug $VERSION);
 ######################################################################
 # configuration
 
-$VERSION = '3.017';
+$VERSION = '3.020';
 
 ######################################################################
 # main
@@ -88,7 +88,7 @@ symlink or the current directory, see L<Dir::Project> for details.
 
 This option is intended to be called from inside a makefile by
 project_dir.mk.  It creates a temporary file with makefile variable
-settings and print that filename.
+settings and prints its filename.
 
 =item --cat
 

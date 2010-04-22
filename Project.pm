@@ -22,7 +22,7 @@ use vars qw($VERSION $Debug $Project %Env_Vars);
 ######################################################################
 #### Configuration Section
 
-$VERSION = '3.017';
+$VERSION = '3.020';
 
 # List of all environment variables we might generate
 %Env_Vars = (
@@ -340,15 +340,15 @@ Dir::Project - Project Environment determination
 =head1 DESCRIPTION
 
 L<Dir::Project> provides a way to locate a source-controlled directory
-(CVS, Subversion, Perforce, etc) using only the current working directory
-(cd).  This prevents users from having to set other environment variables
-when they switch between areas.
+(CVS, Subversion, Perforce, Git, etc) using only the current working
+directory (cd).  This prevents users from having to set other environment
+variables when they switch between areas.
 
-Project_bin allows a single symlink to a user script to be placed in
-a global PATH.  Project_bin then automatically finds that script inside
-the source controlled area.  Different users, or different checkouts
-will execute the script in their areas.  Thus, problems with version
-mismatch across executing tools are eliminated.
+Project_bin allows a single symlink to a user script to be placed in a
+global PATH.  Project_bin then automatically finds that script inside the
+source controlled area.  Different users, or different checkouts will
+execute the script in their areas.  Thus, problems with version mismatch
+across executing tools are eliminated.
 
 =head1 ENVIRONMENT SETUP
 
@@ -362,6 +362,9 @@ Then for each executable that lives in your source control area that you
 wish to dispatch to, you create a simlink:
 
    ln -s project_bin $DIRPROJECT_PREFIX/dir/my_tool
+
+or, instead, make my_tool a script to run project_bin as described in
+L<project_bin>.
 
 More details in L<project_bin>.
 
@@ -406,6 +409,10 @@ inside the makefile.
     # to find files underneath the repository checkout.
     ....
     PATHS = $(DIRPROJECT)/path/under/repo
+
+Or, if you only need the DIRPROJECT variable, you can more simply:
+
+   DIRPROJECT := $(shell dir_project --project)
 
 =head1 USAGE IN EMACS / VERILOG-MODE
 

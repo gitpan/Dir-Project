@@ -9,9 +9,10 @@ use IO::File;
 use strict;
 use Test;
 
-BEGIN { plan tests => 2 }
+BEGIN { plan tests => 3 }
 BEGIN { require "t/test_utils.pl"; }
 
+delete $ENV{DIRPROJECT};  # Prevent failure if mis-pre-set by caller
 test_setup_area();
 
 chdir 'test_dir';
@@ -22,5 +23,10 @@ chdir 'test_dir';
 {
     my $out = `${PERL} '$ENV{DIRPROJECT_PREFIX}/bin/testprog' arguments`;
     # This will execute 30_project_bin.pl
+    ok($out =~ m!hello world!);
+}
+{
+    my $out = `${PERL} '$ENV{DIRPROJECT_PREFIX}/bin/testrun' arguments`;
+    # This will execute 30_project_bin.pl via a scripted startup
     ok($out =~ m!hello world!);
 }

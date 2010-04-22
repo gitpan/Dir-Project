@@ -12,10 +12,15 @@ use vars qw ($Debug $VERSION);
 ######################################################################
 # configuration
 
-$VERSION = '3.017';
+$VERSION = '3.020';
 
 ######################################################################
 # main
+
+my @Orig_ARGV = @ARGV;
+
+my $opt_run = $0;
+$opt_run =~ s/^.*[\\\/]//g;  # Strip path
 
 my @params = ();
 # read command line
@@ -25,6 +30,10 @@ while(defined($_ = shift)) {
     }
     elsif (/^--?project_bin-help/) {
 	usage();
+    }
+    elsif (/^--?project_bin-run(=(.*))?$/) {
+	if ($1) { $opt_run = $2; }
+	else { $opt_run = shift; }
     }
     elsif (/^--?project_bin-version/) {
 	print "Version $VERSION\n";
@@ -42,16 +51,13 @@ while(defined($_ = shift)) {
 $ENV{DIRPROJECT_PREFIX} or die "%Error: project_bin: DIRPROJECT_PREFIX not in environment\n";
 $ENV{DIRPROJECT_PATH}   or die "%Error: project_bin: DIRPROJECT_PATH not in environment\n";
 
-my $program = $0;
-$program =~ s/^.*[\\\/]//g;  # Strip path
-
-if ($program eq "project_bin") {
+if ($opt_run eq "project_bin") {
     print STDERR "%Error: project_bin should be symlinked to a program name, not called directly\n";
     die "%Error: Bad usage, try 'project_bin --project_bin-help'\n";
 }
 
 Dir::Project::get_set_all();
-my @paths = Dir::Project::program_paths(program=>$program);
+my @paths = Dir::Project::program_paths(program=>$opt_run);
 my $program_wdir = Dir::Project::program_bin(paths=>\@paths);
 
 if (!defined $program_wdir) {
@@ -72,6 +78,7 @@ print "project_bin: exec $program_wdir\n" if $Debug;
 $ENV{DIRPROJECT_EXE} = $program_wdir;
 exec $program_wdir, @params;
 # Above should never return, unless error
+exit (20);
 
 ######################################################################
 
@@ -86,12 +93,7 @@ sub debug {
     $Debug = $level;
     $Dir::Project::Debug = $level;
     $ENV{DIRPROJECT_DEBUG} = $level;
-    print "project_bin: $0 ", join(' ',@ARGV), "\n";
-}
-
-sub parameter {
-    my $param = shift;
-    push @params, $param;
+    print "project_bin: $0 ", join(' ',@Orig_ARGV), "\n";
 }
 
 ######################################################################
@@ -129,7 +131,8 @@ current project as determined with L<project_dir>.
 
 This program is not usually called directly.  Instead project_bin is
 symlinked as the name of the program to be executed.  project_bin then uses
-that name to determine the program to be called.
+that name to determine the program to be called.  Alternatively the
+--project_bin-run option may be used to specify what to execute directly.
 
 This process enables multiple versions of a program to exist in different
 project directories.  The global path only contains a simple non-changing
@@ -156,6 +159,13 @@ DIRPROJECT_PATH, it tries to execute
 $DIRPROJECT_PREFIX/bin/C<prog>__notfound which is generally a link to a
 version of C<prog> that is the default for when outside a project.
 
+Instead of symlinking, you can make a script to call project_bin.  This
+allows the name of the script to differ from the name of the linked
+program, and also allows it to work on systems without symlinks.
+
+  #!/usr/bin/perl -w
+  exec 'project_bin', '--project_bin-run', 'name_of_script', @ARGV;
+
 =head1 ARGUMENTS
 
 =over 4
@@ -172,6 +182,12 @@ Strip this flag before passing to the application, and enable debugging.
 =item --project_bin-help
 
 Show this help message and exit.
+
+=item --project_bin-run I<program>
+
+Specify the program name to be executed.  If not specified, presumes
+project_bin is symlinked, and $0 contains the name of the program to
+execute.  See the example above.
 
 =item I<...>
 
