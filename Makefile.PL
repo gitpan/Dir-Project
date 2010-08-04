@@ -7,6 +7,7 @@
 require 5.005;
 use ExtUtils::MakeMaker;
 use Carp;
+use Config;
 
 sub MY::postamble {
     q{
@@ -45,6 +46,10 @@ maintainer-copy: README
 clean::
 	-$(RM_RF) test_dir
 };
+}
+
+if ($Config{osname} =~ /MSWin/) {
+    die "%Error: The Module::LocalBuild package does not yet support MSWindows.  Use Cygwin instead.\n";
 }
 
 WriteMakefile(
