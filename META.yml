@@ -1,22 +1,14 @@
 --- #YAML:1.0
-name:               Dir-Project
-version:            3.021
-abstract:           Determine utility paths relative to version controlled directories
-author:
+name:                Dir-Project
+version:             3.022
+abstract:            Determine utility paths relative to version controlled directories
+license:             ~
+author:              
     - Wilson Snyder <wsnyder@wsnyder.org>
-license:            unknown
-distribution_type:  module
-configure_requires:
-    ExtUtils::MakeMaker:  0
-build_requires:
-    ExtUtils::MakeMaker:  0
-requires:
-    Pod::Usage:  0
-no_index:
-    directory:
-        - t
-        - inc
-generated_by:       ExtUtils::MakeMaker version 6.56
+generated_by:        ExtUtils::MakeMaker version 6.42
+distribution_type:   module
+requires:     
+    Pod::Usage:                    0
 meta-spec:
-    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
-    version:  1.4
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

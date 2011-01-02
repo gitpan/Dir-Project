@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 # DESCRIPTION: Perl ExtUtils: Type 'make test' to test this package
 #
-# Copyright 2006-2010 by Wilson Snyder.  This program is free software;
+# Copyright 2006-2011 by Wilson Snyder.  This program is free software;
 # you can redistribute it and/or modify it under the terms of either the GNU
 # Lesser General Public License Version 3 or the Perl Artistic License Version 2.0.
 
@@ -9,7 +9,7 @@ use IO::File;
 use strict;
 use Test;
 
-BEGIN { plan tests => 3 }
+BEGIN { plan tests => 4 }
 BEGIN { require "t/test_utils.pl"; }
 
 delete $ENV{DIRPROJECT};  # Prevent failure if mis-pre-set by caller
@@ -29,4 +29,8 @@ chdir 'test_dir';
     my $out = `${PERL} '$ENV{DIRPROJECT_PREFIX}/bin/testrun' arguments`;
     # This will execute 30_project_bin.pl via a scripted startup
     ok($out =~ m!hello world!);
+}
+{
+    my $out = `${PERL} '$ENV{DIRPROJECT_PREFIX}/bin/project_which' testprog`;
+    ok($out =~ m!checkout/bin/testprog!);
 }

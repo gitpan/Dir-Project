@@ -12,7 +12,7 @@ use vars qw ($Debug $VERSION);
 ######################################################################
 # configuration
 
-$VERSION = '3.021';
+$VERSION = '3.022';
 
 ######################################################################
 # main
@@ -21,6 +21,7 @@ my @Orig_ARGV = @ARGV;
 
 my $opt_run = $0;
 $opt_run =~ s/^.*[\\\/]//g;  # Strip path
+my $opt_which;
 
 my @params = ();
 # read command line
@@ -38,6 +39,9 @@ while(defined($_ = shift)) {
     elsif (/^--?project_bin-version/) {
 	print "Version $VERSION\n";
     }
+    elsif (/^--?project_bin-which/) {
+	usage();
+    }
     elsif (/^--?debug/) {
 	# Turn on our debug and pass to application too
 	debug();
@@ -54,6 +58,10 @@ $ENV{DIRPROJECT_PATH}   or die "%Error: project_bin: DIRPROJECT_PATH not in envi
 if ($opt_run eq "project_bin") {
     print STDERR "%Error: project_bin should be symlinked to a program name, not called directly\n";
     die "%Error: Bad usage, try 'project_bin --project_bin-help'\n";
+} elsif ($opt_run eq "project_which") {
+    $opt_which = 1;
+    $params[0] or die "%Error: Bad usage, need program name to resolve\n";
+    $opt_run = shift @params;
 }
 
 Dir::Project::get_set_all();
@@ -76,9 +84,14 @@ if (!defined $program_wdir) {
 
 print "project_bin: exec $program_wdir\n" if $Debug;
 $ENV{DIRPROJECT_EXE} = $program_wdir;
-exec $program_wdir, @params;
-# Above should never return, unless error
-exit (20);
+if ($opt_which) {
+    print "$program_wdir\n";
+    exit(0);
+} else {
+    exec $program_wdir, @params;
+    # Above should never return, unless error
+    exit (20);
+}
 
 ######################################################################
 
@@ -112,6 +125,8 @@ project_bin - Call a Dir::Project specific program
 
   [program] [program_arguments]
   [program] --project_bin-help
+  [program] --project_bin-which
+  project_which [program]
 
   # Example script dispatching
   cd ~/project1
@@ -189,6 +204,12 @@ Specify the program name to be executed.  If not specified, presumes
 project_bin is symlinked, and $0 contains the name of the program to
 execute.  See the example above.
 
+=item --project_bin-help
+
+Instead of running the program, print the resolved path, similar to the
+"which" program.  If you symlink project_bin to project_which, this will be
+the default action.
+
 =item I<...>
 
 All other arguments are passed through to the application.
@@ -205,7 +226,7 @@ Dir-Project is part of the L<http://www.veripool.org/> free EDA software
 tool suite.  The latest version is available from CPAN and from
 L<http://www.veripool.org/>.
 
-Copyright 2001-2010 by Wilson Snyder.  This package is free software; you
+Copyright 2001-2011 by Wilson Snyder.  This package is free software; you
 can redistribute it and/or modify it under the terms of either the GNU
 Lesser General Public License Version 3 or the Perl Artistic License Version 2.0.
 

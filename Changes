@@ -3,6 +3,10 @@ Revision history for Perl extension Dir::Project.
 The contributors that suggested a given feature are shown in [].  [by ...]
 indicates the contributor was also the author of the fix; Thanks!
 
+* Dir::Project 3.022 2010/01/02
+
+***	If symlinked to project_which, resolve paths.  [Brad Dobbie]
+
 * Dir::Project 3.021 2010/08/04
 
 ****	Give obvious error message when MS-Windows unsupported.
@@ -69,7 +73,7 @@ DESCRIPTION: Documentation on change history for this package
 
 This uses outline mode in Emacs.  See C-h m [M-x describe-mode].
 
-Copyright 2001-2010 by Wilson Snyder.  This program is free software;
+Copyright 2001-2011 by Wilson Snyder.  This program is free software;
 you can redistribute it and/or modify it under the terms of either the GNU
 Lesser General Public License Version 3 or the Perl Artistic License Version 2.0.
 
