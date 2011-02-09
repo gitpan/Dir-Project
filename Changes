@@ -3,7 +3,11 @@ Revision history for Perl extension Dir::Project.
 The contributors that suggested a given feature are shown in [].  [by ...]
 indicates the contributor was also the author of the fix; Thanks!
 
-* Dir::Project 3.022 2010/01/02
+* Dir::Project 3.023 2011/02/09
+
+****	Fix project_bin --project_bin-which documentation.
+
+* Dir::Project 3.022 2011/01/02
 
 ***	If symlinked to project_which, resolve paths.  [Brad Dobbie]
 

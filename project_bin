@@ -12,7 +12,7 @@ use vars qw ($Debug $VERSION);
 ######################################################################
 # configuration
 
-$VERSION = '3.022';
+$VERSION = '3.023';
 
 ######################################################################
 # main
@@ -40,7 +40,7 @@ while(defined($_ = shift)) {
 	print "Version $VERSION\n";
     }
     elsif (/^--?project_bin-which/) {
-	usage();
+	$opt_which = 1;
     }
     elsif (/^--?debug/) {
 	# Turn on our debug and pass to application too
@@ -55,13 +55,14 @@ while(defined($_ = shift)) {
 $ENV{DIRPROJECT_PREFIX} or die "%Error: project_bin: DIRPROJECT_PREFIX not in environment\n";
 $ENV{DIRPROJECT_PATH}   or die "%Error: project_bin: DIRPROJECT_PATH not in environment\n";
 
-if ($opt_run eq "project_bin") {
-    print STDERR "%Error: project_bin should be symlinked to a program name, not called directly\n";
-    die "%Error: Bad usage, try 'project_bin --project_bin-help'\n";
-} elsif ($opt_run eq "project_which") {
+if ($opt_run eq "project_which" || $opt_which) {
     $opt_which = 1;
     $params[0] or die "%Error: Bad usage, need program name to resolve\n";
     $opt_run = shift @params;
+}
+elsif ($opt_run eq "project_bin") {
+    print STDERR "%Error: project_bin should be symlinked to a program name, not called directly\n";
+    die "%Error: Bad usage, try 'project_bin --project_bin-help'\n";
 }
 
 Dir::Project::get_set_all();
@@ -204,7 +205,7 @@ Specify the program name to be executed.  If not specified, presumes
 project_bin is symlinked, and $0 contains the name of the program to
 execute.  See the example above.
 
-=item --project_bin-help
+=item --project_bin-which
 
 Instead of running the program, print the resolved path, similar to the
 "which" program.  If you symlink project_bin to project_which, this will be

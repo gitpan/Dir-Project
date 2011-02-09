@@ -9,7 +9,7 @@ use IO::File;
 use strict;
 use Test;
 
-BEGIN { plan tests => 4 }
+BEGIN { plan tests => 5 }
 BEGIN { require "t/test_utils.pl"; }
 
 delete $ENV{DIRPROJECT};  # Prevent failure if mis-pre-set by caller
@@ -32,5 +32,9 @@ chdir 'test_dir';
 }
 {
     my $out = `${PERL} '$ENV{DIRPROJECT_PREFIX}/bin/project_which' testprog`;
+    ok($out =~ m!checkout/bin/testprog!);
+}
+{
+    my $out = `${PERL} '$ENV{DIRPROJECT_PREFIX}/bin/project_bin' --project_bin-which testprog`;
     ok($out =~ m!checkout/bin/testprog!);
 }
