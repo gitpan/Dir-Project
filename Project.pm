@@ -22,7 +22,7 @@ use vars qw($VERSION $Debug $Project %Env_Vars);
 ######################################################################
 #### Configuration Section
 
-$VERSION = '3.023';
+$VERSION = '3.024';
 
 # List of all environment variables we might generate
 %Env_Vars = (
@@ -524,7 +524,7 @@ Dir-Project is part of the L<http://www.veripool.org/> free EDA software
 tool suite.  The latest version is available from CPAN and from
 L<http://www.veripool.org/>.
 
-Copyright 2001-2011 by Wilson Snyder.  This package is free software; you
+Copyright 2001-2012 by Wilson Snyder.  This package is free software; you
 can redistribute it and/or modify it under the terms of either the GNU
 Lesser General Public License Version 3 or the Perl Artistic License Version 2.0.
 

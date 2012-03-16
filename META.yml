@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Dir-Project
-version:             3.023
+version:             3.024
 abstract:            Determine utility paths relative to version controlled directories
 license:             ~
 author:              

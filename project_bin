@@ -12,7 +12,7 @@ use vars qw ($Debug $VERSION);
 ######################################################################
 # configuration
 
-$VERSION = '3.023';
+$VERSION = '3.024';
 
 ######################################################################
 # main
@@ -55,7 +55,8 @@ while(defined($_ = shift)) {
 $ENV{DIRPROJECT_PREFIX} or die "%Error: project_bin: DIRPROJECT_PREFIX not in environment\n";
 $ENV{DIRPROJECT_PATH}   or die "%Error: project_bin: DIRPROJECT_PATH not in environment\n";
 
-if ($opt_run eq "project_which" || $opt_which) {
+if ($opt_run eq "project_which"
+    || ($opt_run eq "project_bin" && $opt_which)) {
     $opt_which = 1;
     $params[0] or die "%Error: Bad usage, need program name to resolve\n";
     $opt_run = shift @params;
@@ -98,7 +99,7 @@ if ($opt_which) {
 
 sub usage {
     print "Version $VERSION\n";
-    pod2usage(-verbose=>2, -exitval => 2);
+    pod2usage(-verbose=>2, -exitval=>2, -output=>\*STDOUT, -noperldoc=>1);
     exit (1);
 }
 
@@ -205,6 +206,10 @@ Specify the program name to be executed.  If not specified, presumes
 project_bin is symlinked, and $0 contains the name of the program to
 execute.  See the example above.
 
+=item --project_bin-version
+
+Show program version and exit.
+
 =item --project_bin-which
 
 Instead of running the program, print the resolved path, similar to the
@@ -227,7 +232,7 @@ Dir-Project is part of the L<http://www.veripool.org/> free EDA software
 tool suite.  The latest version is available from CPAN and from
 L<http://www.veripool.org/>.
 
-Copyright 2001-2011 by Wilson Snyder.  This package is free software; you
+Copyright 2001-2012 by Wilson Snyder.  This package is free software; you
 can redistribute it and/or modify it under the terms of either the GNU
 Lesser General Public License Version 3 or the Perl Artistic License Version 2.0.
 
