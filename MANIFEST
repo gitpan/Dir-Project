@@ -22,3 +22,4 @@ t/30_project_bin.t
 t/40_make.mk
 t/40_make.t
 t/test_utils.pl
+META.json                                Module JSON meta-data (added by MakeMaker)
